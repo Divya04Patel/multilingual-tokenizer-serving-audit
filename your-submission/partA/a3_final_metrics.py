@@ -1,4 +1,5 @@
 from pathlib import Path
+import unicodedata
 import tiktoken
 from transformers import AutoTokenizer
 
@@ -20,7 +21,7 @@ def count_metrics(lines, encode):
     total_words = 0
 
     for line in lines:
-        line = line.lower()
+        line = unicodedata.normalize("NFC", line).lower()
         total_tokens += len(encode(line))
         total_words += len(line.split())
 
